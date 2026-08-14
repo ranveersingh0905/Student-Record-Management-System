@@ -219,7 +219,7 @@ void updateStudent()
 
     for(i = 0; i < totalStudents; i++)
     {
-        if(student[i].roll == roll)
+        if(student[i].rollno == roll)
         {
             found = 1;
 
@@ -255,7 +255,44 @@ void updateStudent()
 
 }
 
+/*-------------------------------------------
+        Delete Student Record
+---------------------------------------------*/
+void deleteStudent()
+{
+    int roll,i,j;
+    int found = 0;
+    
+    if (totalStudents == 0)
+    {
+        printf("\nNo Student Records Available. \n");
+        return;
+    }
 
+    printf("\n***********************************");
+    printf("\n\t\t DELETE STUDENT");
+    printf("\n************************************");
+
+    printf("\n Enter Roll Number :");
+    scanf("%d",&roll);
+
+    for(i = 0; i < totalStudents; i++)
+    {
+        found = 1;
+
+        /* Shift all record one position left */
+
+        for(j = i; j < totalStudents - 1;j++ )
+        {
+            student[j] = student[ j + 1];
+        }
+
+        totalStudents--;
+
+        printf("\n Student Record Deleted Successfully. \n");
+        break;
+    }
+}
 
 
 /*--------------------------------------------
