@@ -197,6 +197,68 @@ void searchStudent()
 }
 
 /*--------------------------------------------
+        Update Student Details
+---------------------------------------------*/
+void updateStudent()
+{
+    int roll,i;
+    int found = 0;
+
+    if(totalStudents == 0);
+    {
+        printf("\n No Student Records Available. \n");
+        return;
+    }
+
+    printf("\n**************************************");
+    printf("\n \t UPDATE STUDENT ");
+    printf("\n***************************************");
+
+    printf("\n Enter Roll Number : ");
+    scanf("%d",&roll);
+
+    for(i = 0; i < totalStudents; i++)
+    {
+        if(student[i].roll == roll)
+        {
+            found = 1;
+
+            printf("\n Enter New Name  : ");
+            scanf("%[^\n], student[i].name");
+
+            printf("\n Enter New Age   :");
+            scanf("%d", &student[i].age);
+
+            printf("\n Enter New Department : ");
+            scanf("%[^\n], student[i].department");
+
+            printf("\n Enter new marks 1 : ");
+            scanf("%f", &student[i].marks1);
+
+            printf("\n Enter new marks 2 : ");
+            scanf("%f", &student[i].marks2);
+
+            printf("\n Enter new marks 3 : ");
+            scanf("%f", &student[i].marks3);
+
+            student[i].percentage = calculatePercentage(student[i].marks1, student[i].marks2 ,student[i].marks3);
+
+            printf("\n Record of Student Updated Successfully. \n");
+            break;
+        }
+    }
+
+    if(found == 0)
+    {
+        printf("\n Student Record Not Found. \n");
+    }
+
+}
+
+
+
+
+/*--------------------------------------------
         Main Function 
 ----------------------------------------------*/
 
