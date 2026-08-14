@@ -147,6 +147,55 @@ void displayStudents()
 
 }
 
+/*-------------------------------------------
+        Search Students by Roll Number
+-------------------------------------------*/
+void searchStudent()
+{
+    int rollno, i, found = 0; //Variable to store roll number, loop variable and found flag
+
+    if(totalStudents == 0)
+    {
+        printf("\n No Student Records Found ! \n");
+        return;
+    }
+
+    printf("\n********************************\n");
+    printf("\t\t SEARCH STUDENT RECORD \n");
+    printf("***********************************\n");
+
+    printf("Enter Roll Number to Search : "); // Input roll number to search
+    scanf("%d", &rollno);
+
+    for(i = 0; i<totalStudents; i++)
+    {
+        if(student[i].rollno == rollno) // Check if roll number matches
+        {
+            
+            found = 1; // Set found flag to 1
+
+            printf("\n\n Student Record Found : \n ");
+            printf("\n ================================\n");
+            printf("\n Roll Number : %d", student[i].rollno);
+            printf("\n Name        : %s", student[i].name);
+            printf("\n Age         : %d", student[i].age);
+            printf("\n Department  : %s", student[i].department);
+            printf("\n Marks 1     : %.2f", student[i].marks1);
+            printf("\n Marks 2     : %.2f", student[i].marks2);
+            printf("\n Marks 3     : %.2f", student[i].marks3);
+            printf("\n Percentage  : %.2f %%", student[i].percentage);
+
+            break;
+        }
+    }
+
+    if(found == 0)
+    {
+        printf("\n Student Record Not Found. \n");
+    }
+
+}
+
 /*--------------------------------------------
         Main Function 
 ----------------------------------------------*/
