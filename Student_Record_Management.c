@@ -66,6 +66,9 @@ void searchStudent();
 void updateStudent();
 void deleteStudent();
 
+void savetoFile();
+void loadFromFile();
+
 /*--------------------------------------------
             Calculate Percentage
 ----------------------------------------------*/
@@ -80,7 +83,7 @@ float calculatePercentage(float marks1,float marks2,float marks3)
 void addStudent()
 {
     printf("\n********************************\n");
-    printf("\t\t ADD STUDENT RECORD\n");
+    printf("   ADD STUDENT RECORD\n");
     printf("********************************\n");
 
     printf("Enter Roll Number : "); // Input roll number of student
@@ -109,6 +112,8 @@ void addStudent()
 
      totalStudents++; // Increment total number of students
 
+     savetoFile();
+
      printf("\nStudent Record Added Successfully!\n");
 }
 
@@ -126,7 +131,7 @@ void displayStudents()
     }
 
     printf("\n********************************\n");
-    printf("\t\t STUDENT RECORDS\n");
+    printf("   STUDENT RECORDS\n");
     printf("********************************\n");
 
     for(i = 0; i<totalStudents; i++)
@@ -161,7 +166,7 @@ void searchStudent()
     }
 
     printf("\n********************************\n");
-    printf("\t\t SEARCH STUDENT RECORD \n");
+    printf("  SEARCH STUDENT RECORD \n");
     printf("***********************************\n");
 
     printf("Enter Roll Number to Search : "); // Input roll number to search
@@ -211,7 +216,7 @@ void updateStudent()
     }
 
     printf("\n**************************************");
-    printf("\n \t UPDATE STUDENT ");
+    printf("\n  UPDATE STUDENT ");
     printf("\n***************************************");
 
     printf("\n Enter Roll Number : ");
@@ -243,6 +248,8 @@ void updateStudent()
 
             student[i].percentage = calculatePercentage(student[i].marks1, student[i].marks2 ,student[i].marks3);
 
+            savetoFile();
+
             printf("\n Record of Student Updated Successfully. \n");
             break;
         }
@@ -270,7 +277,7 @@ void deleteStudent()
     }
 
     printf("\n***********************************");
-    printf("\n\t\t DELETE STUDENT");
+    printf("\n    DELETE STUDENT");
     printf("\n************************************");
 
     printf("\n Enter Roll Number :");
@@ -289,11 +296,52 @@ void deleteStudent()
 
         totalStudents--;
 
+        savetoFile();
+
         printf("\n Student Record Deleted Successfully. \n");
         break;
     }
 }
 
+/*--------------------------------------------
+        Save Student Record to File   
+----------------------------------------------*/
+void savetoFile()
+{
+    FILE *fp;
+    fp = fopen("student.dat","wb");
+
+    if (fp == NULL)
+    {
+        printf("\n Error : Unable to create file. \n");
+        return;
+    }
+
+    fwrite(student, sizeof( struct Student), totalStudents, fp);
+
+    fclose(fp);
+
+}
+
+/*-------------------------------------------
+        Load Student Records from File
+---------------------------------------------*/
+void loadFromFile()
+{
+    FILE *fp;
+
+    fp = fopen("student.dat","rb");
+
+    if(fp == NULL)
+    {
+        /* File does not exist yet */
+        return;
+    }
+
+    totalStudents = fread(student, sizeof(struct Student), MAX, fp);
+
+    fclose(fp);
+}
 
 /*--------------------------------------------
         Main Function 
@@ -303,11 +351,13 @@ int main()
 {
     int choice; // Variable to store user choice
 
+    loadFromFile();
+
     while(1) //Infinite loop to display menu until user chooses to exit
     {
-        printf("\n********************************\n");
-        printf("\t STUDENT RECORD MANAGEMENT SYSTEM \n");
-        printf("********************************\n");
+        printf("\n**********************************\n");
+        printf(" STUDENT RECORD MANAGEMENT SYSTEM \n");
+        printf("***********************************\n");
         
         printf("1. Add Student\n");
         printf("2. Display Students \n");
