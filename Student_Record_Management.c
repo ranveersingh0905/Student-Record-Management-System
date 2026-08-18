@@ -209,7 +209,7 @@ void updateStudent()
     int roll,i;
     int found = 0;
 
-    if(totalStudents == 0);
+    if(totalStudents == 0)
     {
         printf("\n No Student Records Available. \n");
         return;
@@ -229,13 +229,13 @@ void updateStudent()
             found = 1;
 
             printf("\n Enter New Name  : ");
-            scanf("%[^\n], student[i].name");
+            scanf("%[^\n]", student[i].name);
 
             printf("\n Enter New Age   :");
             scanf("%d", &student[i].age);
 
             printf("\n Enter New Department : ");
-            scanf("%[^\n], student[i].department");
+            scanf("%[^\n]", student[i].department);
 
             printf("\n Enter new marks 1 : ");
             scanf("%f", &student[i].marks1);
@@ -285,24 +285,32 @@ void deleteStudent()
 
     for(i = 0; i < totalStudents; i++)
     {
-        found = 1;
-
-        /* Shift all record one position left */
-
-        for(j = i; j < totalStudents - 1;j++ )
+        if(student[i].rollno == roll)
         {
+            found = 1;
+
+         /* Shift all record one position left */
+
+         for(j = i; j < totalStudents - 1;j++ )
+          {
             student[j] = student[ j + 1];
+          }
+
+         totalStudents--;
+
+         savetoFile();
+
+         printf("\n Student Record Deleted Successfully. \n");
+         break;
         }
-
-        totalStudents--;
-
-        savetoFile();
-
-        printf("\n Student Record Deleted Successfully. \n");
-        break;
     }
-}
 
+
+ if(found == 0)
+  {
+    printf("\n Student Record Not Found.\n");
+  }
+}
 /*--------------------------------------------
         Save Student Record to File   
 ----------------------------------------------*/
